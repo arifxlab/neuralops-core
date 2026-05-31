@@ -4,11 +4,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ProfileController {
+public class AdminController {
 
-    @GetMapping("/api/profile")
-    public String profile() {
+    @GetMapping("/api/admin/dashboard")
+    public String dashboard() {
 
-        return "Protected Data";
+        return "Admin Dashboard";
     }
 }

@@ -22,14 +22,27 @@ public class SecurityConfig {
             throws Exception {
 
         http
+                // ❌ disable CSRF (important for REST APIs)
                 .csrf(csrf -> csrf.disable())
+
+                // ❌ make API stateless (JWT style)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
+                // 🔐 authorization rules
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers("/api/auth/**").permitAll()
+
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                        .requestMatchers("/api/profile/**").hasAnyRole("USER", "ADMIN")
+
                         .anyRequest().authenticated()
                 )
+
+                // 🔐 add JWT filter
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
