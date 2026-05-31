@@ -1,7 +1,9 @@
 package com.neuralops.core.controller;
 
 import com.neuralops.core.dto.RegisterRequest;
-import com.neuralops.core.model.User;
+import com.neuralops.core.dto.UserResponse;
+import com.neuralops.core.dto.LoginRequest;
+import com.neuralops.core.dto.LoginResponse;
 import com.neuralops.core.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest request) {
+    public UserResponse register(@RequestBody RegisterRequest request) {
         return userService.register(request);
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return userService.login(request);
     }
 }
